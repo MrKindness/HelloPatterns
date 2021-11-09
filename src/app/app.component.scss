@@ -1,0 +1,27 @@
+#MainConatiner {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  //grid-template-columns: 1fr 8fr;
+  grid-template-rows: 1fr 12fr;
+  row-gap: 0px;
+  column-gap: 0px;
+}
+
+#toolbar {
+  // grid-column-start: 1;
+  // grid-column-end: 3;
+}
+
+#side-nav {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+// #content {
+//   grid-row-start: 2;
+//   grid-row-end: 3;
+//   grid-column-start: 2;
+//   grid-column-end: 3;
+// }
