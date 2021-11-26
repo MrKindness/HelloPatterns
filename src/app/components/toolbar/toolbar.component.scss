@@ -1,14 +1,31 @@
 .container {
   display: grid;
-  grid-template-columns: 1fr 20fr;
+  grid-template-columns: auto 1fr auto;
   column-gap: 0px;
   background-color: #14279b;
   height: 100%;
 
+  .textContainer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
   .text {
     color: rgb(225, 225, 255);
+    cursor: pointer;
   }
 
   .sideIcon {
+  }
+
+  .space {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .button {
+    color: rgb(225, 225, 255);
+    border: 1px solid rgb(225, 225, 255);
   }
 }

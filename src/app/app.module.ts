@@ -12,6 +12,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { DefaultContentComponent } from './components/default-content/default-content.component';
+import { CreateNewComponent } from './components/create-new/create-new.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
     SideNavComponent,
     ToolbarComponent,
     ContentComponent,
+    DefaultContentComponent,
+    CreateNewComponent,
   ],
   imports: [
     BrowserModule,

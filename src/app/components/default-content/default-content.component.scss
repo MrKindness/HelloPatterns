@@ -1,0 +1,13 @@
+@import "../common/styles.scss";
+
+.contentContainer {
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+
+.text {
+  font-size: 180px;
+  font-weight: 500;
+  color: rgb(0, 0, 0, 0.1);
+}

@@ -1,8 +1,24 @@
 <mat-toolbar class="container">
-  <div>
-    <button mat-icon-button class="sideIcon" (click)="MenuClick()">
+  <div class="textContainer">
+    <button
+      mat-icon-button
+      class="sideIcon"
+      (click)="ControlClick({ key: '' })"
+    >
       <mat-icon>menu</mat-icon>
     </button>
-    <span class="text">Hello Patterns</span>
+    <span class="text" (click)="ControlClick({ argument: 0, key: '' })"
+      >Hello Patterns</span
+    >
   </div>
+
+  <div class="space"></div>
+  <button
+    class="button"
+    type="button"
+    mat-button
+    (click)="ControlClick({ argument: 1, key: '' })"
+  >
+    Добавить новый
+  </button>
 </mat-toolbar>

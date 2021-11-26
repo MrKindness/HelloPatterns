@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { patternState } from 'src/app/models/patternState.enum';
 
 @Component({
   selector: 'app-side-nav',
@@ -7,18 +8,28 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
   sideNavOpened: boolean = false;
-  constructor() {}
-
   mass = [
     { name: 'Стратегия', key: 'strategy' },
     { name: 'Синглтон', key: 'singleton' },
     { name: 'Команда', key: 'command' },
   ];
 
+  state: patternState = patternState.default;
+
+  constructor() {}
+
   ngOnInit(): void {}
 
-  drawerToggle() {
-    console.log('in side nav component toggle');
+  changeState(newState: patternState): void {
+    console.log('changeState');
+    console.log(this.state);
+
+    this.state = newState;
+    console.log(this.state);
+  }
+
+  changeSideNav() {
     this.sideNavOpened = !this.sideNavOpened;
+    console.log('changeSdeNav');
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { controlEvent } from 'src/app/models/controlEvent';
+import { patternState } from 'src/app/models/patternState.enum';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,13 +9,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
   @Output()
-  menuClick: EventEmitter<any> = new EventEmitter();
+  controlClick: EventEmitter<controlEvent> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  MenuClick(): void {
-    this.menuClick.emit();
+  ControlClick(arg: controlEvent): void {
+    this.controlClick.emit(arg);
   }
 }

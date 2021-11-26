@@ -1,10 +1,11 @@
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideNavOpened">
-    <div class="content">
-      <button type="button" mat-button>CategoryExample</button>
+    <div class="buttonContainer">
+      <button type="button" mat-button>PatternExample</button>
     </div>
   </mat-drawer>
-  <mat-drawer-content class="content">
-    <app-content class="contentComponent"></app-content>
+  <mat-drawer-content [ngSwitch]="state" class="contentContainer">
+    <app-default-content *ngSwitchCase="0"></app-default-content>
+    <app-create-new *ngSwitchCase="1"></app-create-new>
   </mat-drawer-content>
 </mat-drawer-container>
