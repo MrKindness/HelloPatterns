@@ -1,0 +1,29 @@
+<div class="contentContainer">
+  <div class="buttons">
+    <button
+      class="button description"
+      type="button"
+      [ngClass]="{ active: modeTogle == 0 }"
+      mat-button
+      (click)="modeTogle = 0"
+    >
+      Описание
+    </button>
+    <button
+      class="button files"
+      type="button"
+      [ngClass]="{ active: modeTogle == 1 }"
+      mat-button
+      (click)="modeTogle = 1"
+    >
+      Файлы
+    </button>
+  </div>
+  <p>Описание паттерна:</p>
+  <div class="controls">
+    <div class="textContainer">
+      <textarea class="text"></textarea>
+    </div>
+    <div class="filesInput"></div>
+  </div>
+</div>

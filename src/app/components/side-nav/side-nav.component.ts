@@ -14,7 +14,7 @@ export class SideNavComponent implements OnInit {
     { name: 'Команда', key: 'command' },
   ];
 
-  state: patternState = patternState.default;
+  state: patternState = patternState.createNew;
 
   constructor() {}
 

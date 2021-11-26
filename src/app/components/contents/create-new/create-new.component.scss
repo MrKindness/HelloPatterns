@@ -1,0 +1,36 @@
+@import "../../common/styles/styles.scss";
+
+.contentContainer {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+
+  button {
+    border: 1px solid black;
+    margin: 10px 10px 10px 0px;
+  }
+
+  .textContainer {
+    height: 100%;
+    width: 100%;
+  }
+
+  .text {
+    height: 98%;
+    width: 100%;
+    background: none;
+    box-sizing: border-box;
+    border: 1px solid black;
+    outline: none;
+    font-size: 16px;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .active {
+    background-color: rgba(20, 39, 155, 0.8);
+    color: rgb(225, 225, 255);
+  }
+}

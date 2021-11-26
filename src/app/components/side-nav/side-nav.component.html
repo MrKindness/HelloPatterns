@@ -4,8 +4,8 @@
       <button type="button" mat-button>PatternExample</button>
     </div>
   </mat-drawer>
-  <mat-drawer-content [ngSwitch]="state" class="contentContainer">
-    <app-default-content *ngSwitchCase="0"></app-default-content>
-    <app-create-new *ngSwitchCase="1"></app-create-new>
+  <mat-drawer-content [ngSwitch]="state" class="content">
+    <app-default-content *ngSwitchCase="0" class="window"></app-default-content>
+    <app-create-new *ngSwitchCase="1" class="window"></app-create-new>
   </mat-drawer-content>
 </mat-drawer-container>
