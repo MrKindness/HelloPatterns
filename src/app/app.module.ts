@@ -14,6 +14,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DefaultContentComponent } from './components/contents/default-content/default-content.component';
 import { CreateNewComponent } from './components/contents/create-new/create-new.component';
+import { FileViewComponent } from './common/components/file-view/file-view.component';
+import { FormsModule } from '@angular/forms';
+import { CodeEditorComponent } from './common/components/code-editor/code-editor.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { CreateNewComponent } from './components/contents/create-new/create-new.
     ContentComponent,
     DefaultContentComponent,
     CreateNewComponent,
+    FileViewComponent,
+    CodeEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,7 @@ import { CreateNewComponent } from './components/contents/create-new/create-new.
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

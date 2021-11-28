@@ -5,7 +5,7 @@
       type="button"
       [ngClass]="{ active: modeTogle == 0 }"
       mat-button
-      (click)="modeTogle = 0"
+      (click)="OpenDescription()"
     >
       Описание
     </button>
@@ -14,16 +14,38 @@
       type="button"
       [ngClass]="{ active: modeTogle == 1 }"
       mat-button
-      (click)="modeTogle = 1"
+      (click)="OpenFiles()"
     >
       Файлы
     </button>
+    <button
+      class="button addNew"
+      type="button"
+      mat-button
+      (click)="addNewAction()"
+    >
+      Добавить
+    </button>
   </div>
-  <p>Описание паттерна:</p>
   <div class="controls">
-    <div class="textContainer">
-      <textarea class="text"></textarea>
+    <div class="name">
+      <p>Паттерн:</p>
+      <input type="text" />
     </div>
-    <div class="filesInput"></div>
+    <div *ngIf="!modeTogle" class="description">
+      <p>Описание паттерна:</p>
+      <textarea [(ngModel)]="description" #text></textarea>
+    </div>
+    <div *ngIf="modeTogle" class="files">
+      <div class="filesTree"></div>
+      <div class="fileContent">
+        <app-code-editor
+          [content]="editorContent"
+          [readonly]="false"
+          #editor
+          class="editor"
+        ></app-code-editor>
+      </div>
+    </div>
   </div>
 </div>

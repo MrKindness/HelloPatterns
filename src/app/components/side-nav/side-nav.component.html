@@ -5,7 +5,12 @@
     </div>
   </mat-drawer>
   <mat-drawer-content [ngSwitch]="state" class="content">
-    <app-default-content *ngSwitchCase="0" class="window"></app-default-content>
-    <app-create-new *ngSwitchCase="1" class="window"></app-create-new>
+    <div class="windowContainer">
+      <app-default-content
+        *ngSwitchCase="0"
+        class="window"
+      ></app-default-content>
+      <app-create-new *ngSwitchCase="1" class="window"></app-create-new>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>
