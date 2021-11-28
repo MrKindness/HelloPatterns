@@ -37,7 +37,13 @@
       <textarea [(ngModel)]="description" #text></textarea>
     </div>
     <div *ngIf="modeTogle" class="files">
-      <div class="filesTree"></div>
+      <div class="filesTree">
+        <app-file-view
+          class="fileTree"
+          [readolny]="false"
+          [files]="newPattern!.files"
+        ></app-file-view>
+      </div>
       <div class="fileContent">
         <app-code-editor
           [content]="editorContent"

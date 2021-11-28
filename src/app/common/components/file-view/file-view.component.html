@@ -1,1 +1,36 @@
-<p>file-view works!</p>
+<div class="Container">
+  <div class="fileContainer">
+    <button mat-button class="folderName" (click)="folderClick()">
+      <mat-icon *ngIf="!expanded && files.type == 0">chevron_right</mat-icon>
+      <mat-icon *ngIf="expanded && files.type == 0">expand_more</mat-icon>
+      <mat-icon *ngIf="files.type == 1">code</mat-icon>
+      {{ files.name }}
+    </button>
+    <button mat-button class="Icon edit" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button *ngIf="files.type == 0" mat-menu-item (click)="handleMenu(0)">
+        <mat-icon>create_new_folder</mat-icon>
+        <span>Добавить директорию</span>
+      </button>
+      <button *ngIf="files.type == 0" mat-menu-item (click)="handleMenu(1)">
+        <mat-icon>code</mat-icon>
+        <span>Добавить файл</span>
+      </button>
+      <button mat-menu-item (click)="handleMenu(2)">
+        <mat-icon>edit</mat-icon>
+        <span>Переименовать</span>
+      </button>
+      <button mat-menu-item (click)="handleMenu(3)">
+        <mat-icon>clear</mat-icon>
+        <span>Удалить</span>
+      </button>
+    </mat-menu>
+  </div>
+  <app-file-view
+    [readolny]="readolny"
+    *ngFor="let one of files.subFolders"
+    [files]="one"
+  ></app-file-view>
+</div>

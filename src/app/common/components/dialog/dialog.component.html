@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{ data.headerText }}</h1>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="data.type != 0" appearance="fill">
+    <input matInput [(ngModel)]="value" />
+  </mat-form-field>
+</div>
+<div *ngIf="data.type != 0" mat-dialog-actions>
+  <button mat-button (click)="cancel()">Отмена</button>
+  <button mat-button (click)="ok()">Ок</button>
+</div>
+<div *ngIf="data.type == 0" mat-dialog-actions>
+  <button mat-button (click)="cancel()">Нет</button>
+  <button mat-button (click)="ok()">Да</button>
+</div>
