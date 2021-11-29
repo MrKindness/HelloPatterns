@@ -1,8 +1,10 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CodeEditorComponent } from 'src/app/common/components/code-editor/code-editor.component';
 import { fileObject } from 'src/app/models/fileObject';
 import { fileType } from 'src/app/models/fileType';
 import { pattern } from 'src/app/models/pattern';
+import { FileDeleteService } from 'src/app/services/FileDelete.service';
 import { TabSwitchService } from 'src/app/services/tabSwitch.service';
 
 enum createMode {
@@ -21,10 +23,18 @@ export class CreateNewComponent implements OnInit {
   modeTogle: createMode = createMode.description;
   selectedFile: fileObject | undefined = undefined;
   @Input() newPattern?: pattern;
+  sub!: Subscription;
 
-  constructor(private pageChange: TabSwitchService) {}
+  constructor(
+    private pageChange: TabSwitchService,
+    private delServ: FileDeleteService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sub = this.delServ.delNotificationObject.subscribe((event) => {
+      if (event === this.selectedFile) this.selectedFile = undefined;
+    });
+  }
 
   addNewAction(): void {
     console.log(this.newPattern);
@@ -42,6 +52,5 @@ export class CreateNewComponent implements OnInit {
 
   fileClicked(data: any) {
     this.selectedFile = data;
-    console.log(data);
   }
 }

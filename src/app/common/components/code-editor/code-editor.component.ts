@@ -33,7 +33,7 @@ export class CodeEditorComponent implements OnInit {
       parent: document.getElementById('editor') || undefined,
     });
 
-    this.sub = this.pageChange.notificationObject.subscribe(() => {
+    this.sub = this.pageChange.switchNotificationObject.subscribe(() => {
       this.file.content = this.saveContent();
     });
   }

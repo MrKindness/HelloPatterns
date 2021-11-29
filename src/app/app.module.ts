@@ -24,6 +24,7 @@ import { FileViewComponent } from './common/components/file-view/file-view.compo
 import { CodeEditorComponent } from './common/components/code-editor/code-editor.component';
 import { DialogComponent } from './common/components/dialog/dialog.component';
 import { TabSwitchService } from './services/tabSwitch.service';
+import { FileDeleteService } from './services/FileDelete.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { TabSwitchService } from './services/tabSwitch.service';
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [TabSwitchService],
+  providers: [TabSwitchService, FileDeleteService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

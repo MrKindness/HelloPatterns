@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>{{ data.headerText }}</h1>
 <div mat-dialog-content>
   <mat-form-field *ngIf="data.type != 3" appearance="fill">
-    <input matInput [(ngModel)]="value" />
+    <input matInput [(ngModel)]="data.itemName" />
   </mat-form-field>
 </div>
 <div *ngIf="data.type != 3" mat-dialog-actions>

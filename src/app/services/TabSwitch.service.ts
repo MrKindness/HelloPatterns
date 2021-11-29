@@ -3,9 +3,9 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class TabSwitchService {
-  notificationObject = new Subject();
+  switchNotificationObject = new Subject();
 
   pageSwitch(): void {
-    this.notificationObject.next();
+    this.switchNotificationObject.next();
   }
 }

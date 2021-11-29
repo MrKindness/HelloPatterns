@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { dialogData, dialogType } from 'src/app/models/dialogData';
 import { fileObject } from 'src/app/models/fileObject';
 import { fileType } from 'src/app/models/fileType';
+import { FileDeleteService } from 'src/app/services/FileDelete.service';
 import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
@@ -14,6 +15,7 @@ export class FileViewComponent implements OnInit {
   @Input() readonly: boolean = false;
   @Input() file!: fileObject;
   @Output() itemClicked = new EventEmitter<fileObject>();
+  @Output() itemDelete = new EventEmitter<fileObject>();
 
   expanded: boolean = false;
 
@@ -24,7 +26,7 @@ export class FileViewComponent implements OnInit {
     type: dialogType.addFile,
   };
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private delNot: FileDeleteService) {}
 
   ngOnInit(): void {}
 
@@ -33,6 +35,7 @@ export class FileViewComponent implements OnInit {
       width: 'auto',
       data: this.dialogData,
       disableClose: true,
+      restoreFocus: false,
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -45,18 +48,22 @@ export class FileViewComponent implements OnInit {
     switch (type) {
       case 0:
         this.dialogData.headerText = 'Введите имя новой директории';
+        this.dialogData.itemName = '';
         this.dialogData.type = dialogType.addFolder;
         break;
       case 1:
         this.dialogData.headerText = 'Введите имя нового файла';
+        this.dialogData.itemName = '';
         this.dialogData.type = dialogType.addFile;
         break;
       case 2:
         this.dialogData.headerText = 'Введите новое имя элемента';
+        this.dialogData.itemName = this.file.name;
         this.dialogData.type = dialogType.rename;
         break;
       case 3:
         this.dialogData.headerText = 'Вы действительно хотите удалить элемент?';
+        this.dialogData.itemName = '';
         this.dialogData.type = dialogType.delete;
         break;
     }
@@ -88,23 +95,30 @@ export class FileViewComponent implements OnInit {
           this.file.name = this.dialogData.itemName;
         break;
       case dialogType.delete:
-        console.log('delete');
+        if (this.dialogData.deleteConfirmation) {
+          this.itemDelete.emit(this.file);
+        }
         break;
     }
   }
 
-  folderClick() {
-    if (this.file.type == fileType.folder) this.expanded = !this.expanded;
-    else {
-      console.log('emit ' + this.file.name);
-
-      this.itemClicked.emit(this.file);
-    }
+  itemClick() {
+    if (this.file.type != fileType.file) this.expanded = !this.expanded;
+    else this.itemClicked.emit(this.file);
   }
 
   raiseChildClick(event: any) {
-    console.log('raise ' + this.file.name);
-    console.log(event);
     this.itemClicked.emit(event);
+  }
+
+  raiseChildDelete(event: any) {}
+
+  deleteItem(event: any) {
+    this.file.subFolders!.forEach((item, index) => {
+      if (item === event) {
+        this.file.subFolders!.splice(index, 1);
+        this.delNot.delFile(event);
+      }
+    });
   }
 }

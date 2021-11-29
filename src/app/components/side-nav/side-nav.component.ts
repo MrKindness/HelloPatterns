@@ -19,7 +19,7 @@ export class SideNavComponent implements OnInit {
       name: 'src',
       content: undefined,
       subFolders: [],
-      type: fileType.folder,
+      type: fileType.root,
     },
   };
   constructor(private pageChange: TabSwitchService) {}

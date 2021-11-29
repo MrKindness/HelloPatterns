@@ -8,25 +8,23 @@ import { dialogData } from 'src/app/models/dialogData';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-  value: String = '';
-
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: dialogData
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.data);
+  }
 
   cancel(): void {
     this.data.deleteConfirmation = false;
-    this.data.itemName = this.value;
     this.dialogRef.close();
   }
 
   ok() {
     this.data.deleteConfirmation = true;
-    this.data.itemName = this.value;
     this.dialogRef.close();
   }
 }
