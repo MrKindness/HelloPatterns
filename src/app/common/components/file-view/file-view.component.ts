@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { dialogData, dialogType } from 'src/app/models/dialogData';
 import { fileObject } from 'src/app/models/fileObject';
@@ -11,8 +11,9 @@ import { DialogComponent } from '../dialog/dialog.component';
   styleUrls: ['./file-view.component.scss'],
 })
 export class FileViewComponent implements OnInit {
-  @Input() readolny: boolean = false;
-  @Input() files!: fileObject;
+  @Input() readonly: boolean = false;
+  @Input() file!: fileObject;
+  @Output() itemClicked = new EventEmitter<fileObject>();
 
   expanded: boolean = false;
 
@@ -35,11 +36,12 @@ export class FileViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log(this.dialogData);
+      this.handleResult();
     });
   }
 
   handleMenu(type: dialogType) {
+    console.log(type);
     switch (type) {
       case 0:
         this.dialogData.headerText = 'Введите имя новой директории';
@@ -61,7 +63,48 @@ export class FileViewComponent implements OnInit {
     this.openDialog();
   }
 
+  handleResult() {
+    switch (this.dialogData.type) {
+      case dialogType.addFolder:
+        if (this.dialogData.itemName.length > 0)
+          this.file.subFolders?.push({
+            content: undefined,
+            name: this.dialogData.itemName,
+            subFolders: [],
+            type: fileType.folder,
+          });
+        break;
+      case dialogType.addFile:
+        if (this.dialogData.itemName.length > 0)
+          this.file.subFolders?.push({
+            content: [''],
+            name: this.dialogData.itemName,
+            subFolders: undefined,
+            type: fileType.file,
+          });
+        break;
+      case dialogType.rename:
+        if (this.dialogData.itemName.length > 0)
+          this.file.name = this.dialogData.itemName;
+        break;
+      case dialogType.delete:
+        console.log('delete');
+        break;
+    }
+  }
+
   folderClick() {
-    this.expanded = !this.expanded;
+    if (this.file.type == fileType.folder) this.expanded = !this.expanded;
+    else {
+      console.log('emit ' + this.file.name);
+
+      this.itemClicked.emit(this.file);
+    }
+  }
+
+  raiseChildClick(event: any) {
+    console.log('raise ' + this.file.name);
+    console.log(event);
+    this.itemClicked.emit(event);
   }
 }

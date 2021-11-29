@@ -1,20 +1,25 @@
 <div class="Container">
   <div class="fileContainer">
     <button mat-button class="folderName" (click)="folderClick()">
-      <mat-icon *ngIf="!expanded && files.type == 0">chevron_right</mat-icon>
-      <mat-icon *ngIf="expanded && files.type == 0">expand_more</mat-icon>
-      <mat-icon *ngIf="files.type == 1">code</mat-icon>
-      {{ files.name }}
+      <mat-icon *ngIf="!expanded && file.type == 0">chevron_right</mat-icon>
+      <mat-icon *ngIf="expanded && file.type == 0">expand_more</mat-icon>
+      <mat-icon *ngIf="file.type == 1">code</mat-icon>
+      {{ file.name }}
     </button>
-    <button mat-button class="Icon edit" [matMenuTriggerFor]="menu">
+    <button
+      mat-button
+      *ngIf="!readonly"
+      class="editIcon"
+      [matMenuTriggerFor]="menu"
+    >
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button *ngIf="files.type == 0" mat-menu-item (click)="handleMenu(0)">
+      <button *ngIf="file.type == 0" mat-menu-item (click)="handleMenu(0)">
         <mat-icon>create_new_folder</mat-icon>
         <span>Добавить директорию</span>
       </button>
-      <button *ngIf="files.type == 0" mat-menu-item (click)="handleMenu(1)">
+      <button *ngIf="file.type == 0" mat-menu-item (click)="handleMenu(1)">
         <mat-icon>code</mat-icon>
         <span>Добавить файл</span>
       </button>
@@ -28,9 +33,12 @@
       </button>
     </mat-menu>
   </div>
-  <app-file-view
-    [readolny]="readolny"
-    *ngFor="let one of files.subFolders"
-    [files]="one"
-  ></app-file-view>
+  <div class="childrenContainer" *ngIf="expanded">
+    <app-file-view
+      (itemClicked)="raiseChildClick($event)"
+      [readonly]="readonly"
+      *ngFor="let one of file.subFolders"
+      [file]="one"
+    ></app-file-view>
+  </div>
 </div>

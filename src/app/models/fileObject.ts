@@ -2,7 +2,7 @@ import { fileType } from './fileType';
 
 export interface fileObject {
   name: String;
-  content: string[];
-  subFolders: fileObject[];
+  content: string[] | undefined;
+  subFolders: fileObject[] | undefined;
   type: fileType;
 }

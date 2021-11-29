@@ -10,7 +10,11 @@
         *ngSwitchCase="0"
         class="window"
       ></app-default-content>
-      <app-create-new *ngSwitchCase="1" class="window"></app-create-new>
+      <app-create-new
+        [newPattern]="newPattern"
+        *ngSwitchCase="1"
+        class="window"
+      ></app-create-new>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>

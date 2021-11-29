@@ -23,6 +23,7 @@ import { CreateNewComponent } from './components/contents/create-new/create-new.
 import { FileViewComponent } from './common/components/file-view/file-view.component';
 import { CodeEditorComponent } from './common/components/code-editor/code-editor.component';
 import { DialogComponent } from './common/components/dialog/dialog.component';
+import { TabSwitchService } from './services/tabSwitch.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { DialogComponent } from './common/components/dialog/dialog.component';
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [],
+  providers: [TabSwitchService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

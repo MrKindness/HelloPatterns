@@ -19,14 +19,12 @@ export class DialogComponent implements OnInit {
   ngOnInit(): void {}
 
   cancel(): void {
-    console.log('cancel');
     this.data.deleteConfirmation = false;
     this.data.itemName = this.value;
     this.dialogRef.close();
   }
 
   ok() {
-    console.log('ok');
     this.data.deleteConfirmation = true;
     this.data.itemName = this.value;
     this.dialogRef.close();

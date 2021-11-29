@@ -3,6 +3,9 @@ import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
 import { java } from '@codemirror/lang-java';
 import { Transaction } from '@codemirror/state';
 import { Text } from '@codemirror/text';
+import { Subscription } from 'rxjs';
+import { fileObject } from 'src/app/models/fileObject';
+import { TabSwitchService } from 'src/app/services/tabSwitch.service';
 
 @Component({
   selector: 'app-code-editor',
@@ -11,10 +14,11 @@ import { Text } from '@codemirror/text';
 })
 export class CodeEditorComponent implements OnInit {
   editor!: EditorView;
-  @Input() content!: string[];
+  @Input() file!: fileObject;
   @Input() readonly: boolean = false;
+  sub!: Subscription;
 
-  constructor() {}
+  constructor(private pageChange: TabSwitchService) {}
 
   ngOnInit(): void {
     this.editor = new EditorView({
@@ -24,20 +28,25 @@ export class CodeEditorComponent implements OnInit {
           java(),
           EditorState.readOnly.of(this.readonly),
         ],
-        doc: Text.of(this.content),
+        doc: Text.of(this.file.content || ['']),
       }),
       parent: document.getElementById('editor') || undefined,
     });
 
-    let transaction = this.editor.state.update({});
-    this.editor.dispatch(transaction);
+    this.sub = this.pageChange.notificationObject.subscribe(() => {
+      this.file.content = this.saveContent();
+    });
   }
 
-  getContent() {
+  saveContent() {
     let response: string[] = [];
     for (let i = 1; i <= this.editor.state.doc.lines; i++) {
       response.push(this.editor.state.doc.line(i).text);
     }
     return response;
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

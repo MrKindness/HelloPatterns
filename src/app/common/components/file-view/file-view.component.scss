@@ -1,17 +1,24 @@
 .fileContainer {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-
   .folderName {
-    font-size: 18px;
-    width: 100%;
+    font-size: 14px;
+    width: auto;
     height: 100%;
-    padding-left: 0px;
+    padding: 0px;
   }
 
-  .Icon {
-    padding: 0px;
-    width: auto;
+  .editIcon {
+    padding: 0px !important;
+    width: 36px;
+    min-width: 0px !important;
   }
+
+  .editIcon span {
+    padding: 0px;
+    width: 36px !important;
+    min-width: 0px !important;
+  }
+}
+
+.childrenContainer {
+  margin-left: 20px;
 }

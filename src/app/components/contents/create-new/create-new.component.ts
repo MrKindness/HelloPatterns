@@ -1,7 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { CodeEditorComponent } from 'src/app/common/components/code-editor/code-editor.component';
+import { fileObject } from 'src/app/models/fileObject';
 import { fileType } from 'src/app/models/fileType';
 import { pattern } from 'src/app/models/pattern';
+import { TabSwitchService } from 'src/app/services/tabSwitch.service';
 
 enum createMode {
   description,
@@ -17,33 +19,29 @@ export class CreateNewComponent implements OnInit {
   @ViewChild('editor') editor!: CodeEditorComponent;
 
   modeTogle: createMode = createMode.description;
-  description: string = '';
-  editorContent: string[] = ['heelo', 'helllloooooo', '     heeelllllooeoeoe'];
+  selectedFile: fileObject | undefined = undefined;
+  @Input() newPattern?: pattern;
 
-  newPattern?: pattern = {
-    description: '',
-    name: '',
-    files: {
-      name: 'src',
-      content: [],
-      subFolders: [],
-      type: fileType.folder,
-    },
-  };
-
-  constructor() {}
+  constructor(private pageChange: TabSwitchService) {}
 
   ngOnInit(): void {}
 
   addNewAction(): void {
-    console.log(this.editor.getContent());
+    console.log(this.newPattern);
   }
 
   OpenDescription() {
+    this.pageChange.pageSwitch();
     if (this.modeTogle) this.modeTogle = createMode.description;
   }
 
   OpenFiles() {
+    this.pageChange.pageSwitch();
     this.modeTogle = createMode.files;
+  }
+
+  fileClicked(data: any) {
+    this.selectedFile = data;
+    console.log(data);
   }
 }

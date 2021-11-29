@@ -30,27 +30,37 @@
   <div class="controls">
     <div class="name">
       <p>Паттерн:</p>
-      <input type="text" />
+      <input type="text" [(ngModel)]="newPattern!.name" />
     </div>
     <div *ngIf="!modeTogle" class="description">
       <p>Описание паттерна:</p>
-      <textarea [(ngModel)]="description" #text></textarea>
+      <textarea [(ngModel)]="newPattern!.description" #text></textarea>
     </div>
     <div *ngIf="modeTogle" class="files">
       <div class="filesTree">
         <app-file-view
           class="fileTree"
-          [readolny]="false"
-          [files]="newPattern!.files"
+          [readonly]="false"
+          [file]="newPattern!.files"
+          (itemClicked)="fileClicked($event)"
         ></app-file-view>
       </div>
       <div class="fileContent">
         <app-code-editor
-          [content]="editorContent"
+          *ngIf="
+            selectedFile != undefined && selectedFile.type == 1;
+            else emptyCodeBlock
+          "
+          [file]="selectedFile"
           [readonly]="false"
           #editor
           class="editor"
         ></app-code-editor>
+        <ng-template #emptyCodeBlock>
+          <div class="emptyCodeBlock">
+            <p>Здесь будет код, выбранного файла</p>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
