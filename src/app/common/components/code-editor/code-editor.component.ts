@@ -6,7 +6,7 @@ import { Text } from '@codemirror/text';
 import { Subscription } from 'rxjs';
 import { editorControlType } from 'src/app/models/editorControl.enum';
 import { fileObject } from 'src/app/models/fileObject';
-import { EditorControlService } from 'src/app/services/EditorControl';
+import { EditorControlService } from 'src/app/services/EditorControl.service';
 
 @Component({
   selector: 'app-code-editor',
@@ -16,12 +16,14 @@ import { EditorControlService } from 'src/app/services/EditorControl';
 export class CodeEditorComponent implements OnInit {
   editor!: EditorView;
   @Input() file!: fileObject;
-  @Input() readonly: boolean = false;
+  @Input() readonly!: boolean;
   sub!: Subscription;
 
   constructor(private editorControl: EditorControlService) {}
 
   ngOnInit(): void {
+    console.log(this.readonly);
+
     this.sub = this.editorControl.notificationObject.subscribe((object) => {
       switch (object.type) {
         case editorControlType.saveFile:
@@ -29,7 +31,11 @@ export class CodeEditorComponent implements OnInit {
           break;
         case editorControlType.setFile:
           this.file = object.data;
-          this.refreshContent();
+          this.refreshEditor();
+          break;
+        case editorControlType.setReadOnly:
+          this.readonly = object.data;
+          this.refreshEditor();
           break;
       }
     });
@@ -55,7 +61,7 @@ export class CodeEditorComponent implements OnInit {
     return response;
   }
 
-  refreshContent() {
+  refreshEditor() {
     this.editor.setState(
       EditorState.create({
         extensions: [

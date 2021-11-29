@@ -2,10 +2,16 @@
   height: 100%;
   background-color: #e6e6e6;
 
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
   .content {
     display: grid;
     align-items: center;
     justify-items: center;
+
     .windowContainer {
       height: 100%;
       width: 98%;

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { fileObject } from 'src/app/models/fileObject';
 import { pattern } from 'src/app/models/pattern';
 import { FileDeleteService } from 'src/app/services/FileDelete.service';
-import { EditorControlService } from 'src/app/services/EditorControl';
+import { EditorControlService } from 'src/app/services/EditorControl.service';
 
 enum createMode {
   description,
@@ -18,6 +18,7 @@ enum createMode {
 export class CreateNewComponent implements OnInit {
   @Input() newPattern?: pattern;
   @Output() savePattern = new EventEmitter();
+  @Input() readonly: boolean = false;
 
   modeTogle: createMode = createMode.files;
   selectedFile: fileObject | undefined = undefined;
@@ -34,8 +35,12 @@ export class CreateNewComponent implements OnInit {
     });
   }
 
+  //Добавить диалоговое окно (после изменения струткуры)
   addNewAction(): void {
-    if (this.newPattern!.name.length > 0) this.savePattern.emit();
+    if (this.newPattern!.name.length > 0) {
+      this.savePattern.emit();
+      this.selectedFile = undefined;
+    }
   }
 
   OpenDescription() {
@@ -49,8 +54,6 @@ export class CreateNewComponent implements OnInit {
   }
 
   fileClicked(data: any) {
-    console.log('fileclicked');
-
     this.editorControl.saveFile();
     this.selectedFile = data;
     this.editorControl.setNewFile(data);

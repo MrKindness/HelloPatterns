@@ -2,7 +2,9 @@ export enum patternState {
   //0
   default,
   //1
-  createNew,
+  create,
   //2
-  pattern,
+  read,
+  //3
+  update,
 }

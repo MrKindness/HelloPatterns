@@ -16,4 +16,11 @@ export class EditorControlService {
       data: file,
     });
   }
+
+  setReadOnly(readOnly: boolean) {
+    this.notificationObject.next({
+      type: editorControlType.setReadOnly,
+      data: readOnly,
+    });
+  }
 }

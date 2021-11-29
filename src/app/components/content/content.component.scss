@@ -1,0 +1,85 @@
+@import "../../common/styles/styles.scss";
+
+.contentContainer {
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  button {
+    border: 1px solid black;
+    margin: 10px 10px 10px 0px;
+  }
+
+  .active {
+    background-color: rgba(20, 39, 155, 0.8);
+    color: rgb(225, 225, 255);
+  }
+
+  .controls {
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    p {
+      display: inline;
+      font-weight: 500;
+      font-size: 18px;
+      margin: 10px 10px 10px 0px;
+    }
+
+    .name {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+
+      input {
+        background: none;
+        border: 1px solid black;
+        outline: none;
+        font-size: 16px;
+        width: 30%;
+      }
+    }
+
+    .description {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+
+      textarea {
+        height: 98%;
+        width: 100%;
+        background: none;
+        box-sizing: border-box;
+        border: 1px solid black;
+        outline: none;
+        font-size: 16px;
+        resize: none;
+      }
+    }
+
+    .files {
+      display: grid;
+      grid-template-columns: auto 1fr;
+
+      .fileContent {
+        height: 98%;
+        display: grid;
+
+        .emptyCodeBlock {
+          height: 100%;
+          width: 100%;
+          display: grid;
+          align-items: center;
+          justify-items: center;
+
+          p {
+            margin: 0px;
+            font-size: 40px;
+            font-weight: 500;
+            color: rgb(0, 0, 0, 0.1);
+            line-height: 1.5;
+          }
+        }
+      }
+    }
+  }
+}

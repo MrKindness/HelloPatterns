@@ -23,25 +23,57 @@
       type="button"
       mat-button
       (click)="addNewAction()"
+      *ngIf="state == 1"
     >
       Добавить
+    </button>
+    <button
+      class="button change"
+      type="button"
+      mat-button
+      (click)="ChangePatternAction()"
+      *ngIf="state == 2"
+    >
+      Изменить
+    </button>
+    <button
+      class="button change"
+      type="button"
+      mat-button
+      (click)="SavePatternAction()"
+      *ngIf="state == 3"
+    >
+      Сохранить изменения
+    </button>
+    <button
+      class="button delete"
+      type="button"
+      mat-button
+      (click)="DeletePatternAction()"
+      *ngIf="state == 2"
+    >
+      Удалить
     </button>
   </div>
   <div class="controls">
     <div class="name">
       <p>Паттерн:</p>
-      <input type="text" [(ngModel)]="newPattern!.name" />
+      <input type="text" [(ngModel)]="pattern!.name" [readonly]="state == 2" />
     </div>
     <div *ngIf="!modeTogle" class="description">
       <p>Описание паттерна:</p>
-      <textarea [(ngModel)]="newPattern!.description" #text></textarea>
+      <textarea
+        [(ngModel)]="pattern!.description"
+        #text
+        [readonly]="state == 2"
+      ></textarea>
     </div>
     <div *ngIf="modeTogle" class="files">
       <div class="filesTree">
         <app-file-view
           class="fileTree"
-          [readonly]="false"
-          [file]="newPattern!.files"
+          [readonly]="state == 2"
+          [file]="pattern!.files"
           (itemClicked)="fileClicked($event)"
         ></app-file-view>
       </div>
@@ -52,6 +84,7 @@
             else emptyCodeBlock
           "
           [file]="selectedFile"
+          [readonly]="state == 2"
           #editor
           class="editor"
         ></app-code-editor>

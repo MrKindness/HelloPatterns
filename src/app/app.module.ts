@@ -17,14 +17,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { ContentComponent } from './components/contents/content/content.component';
+import { ContentComponent } from './components/content/content.component';
 import { DefaultContentComponent } from './components/contents/default-content/default-content.component';
 import { CreateNewComponent } from './components/contents/create-new/create-new.component';
 import { FileViewComponent } from './common/components/file-view/file-view.component';
 import { CodeEditorComponent } from './common/components/code-editor/code-editor.component';
 import { DialogComponent } from './common/components/dialog/dialog.component';
-import { EditorControlService } from './services/EditorControl';
+import { EditorControlService } from './services/EditorControl.service';
 import { FileDeleteService } from './services/FileDelete.service';
+import { PatternButtonComponent } from './components/pattern-button/pattern-button.component';
+import { PageControlService } from './services/PageControl.service';
+import { StateChangeService } from './services/StateChange.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { FileDeleteService } from './services/FileDelete.service';
     FileViewComponent,
     CodeEditorComponent,
     DialogComponent,
+    PatternButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,12 @@ import { FileDeleteService } from './services/FileDelete.service';
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [EditorControlService, FileDeleteService],
+  providers: [
+    EditorControlService,
+    FileDeleteService,
+    PageControlService,
+    StateChangeService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

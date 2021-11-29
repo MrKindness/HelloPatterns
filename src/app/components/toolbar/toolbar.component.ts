@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { controlEvent } from 'src/app/models/controlEvent';
+import { Component, OnInit } from '@angular/core';
 import { patternState } from 'src/app/models/patternState.enum';
+import { PageControlService } from 'src/app/services/PageControl.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,14 +8,11 @@ import { patternState } from 'src/app/models/patternState.enum';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-  @Output()
-  controlClick: EventEmitter<controlEvent> = new EventEmitter();
-
-  constructor() {}
+  constructor(private pageControl: PageControlService) {}
 
   ngOnInit(): void {}
 
-  ControlClick(arg: controlEvent): void {
-    this.controlClick.emit(arg);
+  ControlClick(arg?: patternState): void {
+    this.pageControl.pageEvent(arg);
   }
 }

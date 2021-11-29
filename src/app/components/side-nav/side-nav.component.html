@@ -1,23 +1,35 @@
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideNavOpened">
     <div class="buttonContainer">
-      <button type="button" mat-button *ngFor="let one of patterns">
-        {{ one.name }}
-      </button>
+      <app-pattern-button
+        class="patButton"
+        *ngFor="let one of patterns"
+        [pattern]="one"
+        (buttonEmit)="patternSelected($event)"
+      ></app-pattern-button>
     </div>
   </mat-drawer>
-  <mat-drawer-content [ngSwitch]="state" class="content">
+  <mat-drawer-content class="content">
     <div class="windowContainer">
       <app-default-content
-        *ngSwitchCase="0"
+        *ngIf="state == 0; else elseBlock"
         class="window"
       ></app-default-content>
-      <app-create-new
+      <!-- <app-create-new
         [newPattern]="newPattern"
+
         *ngSwitchCase="1"
         class="window"
         (savePattern)="saveNewPattern()"
-      ></app-create-new>
+      ></app-create-new> -->
+      <ng-template #elseBlock>
+        <app-content
+          (addNewPattern)="addNewPattern()"
+          [pattern]="selectedPattern"
+          class="window"
+          [state]="state"
+        ></app-content>
+      </ng-template>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
