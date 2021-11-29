@@ -1,4 +1,4 @@
-import { fileType } from './fileType';
+import { fileType } from './fileType.enum';
 
 export interface fileObject {
   name: String;

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { dialogData, dialogType } from 'src/app/models/dialogData';
 import { fileObject } from 'src/app/models/fileObject';
-import { fileType } from 'src/app/models/fileType';
+import { fileType } from 'src/app/models/fileType.enum';
 import { FileDeleteService } from 'src/app/services/FileDelete.service';
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -110,8 +110,6 @@ export class FileViewComponent implements OnInit {
   raiseChildClick(event: any) {
     this.itemClicked.emit(event);
   }
-
-  raiseChildDelete(event: any) {}
 
   deleteItem(event: any) {
     this.file.subFolders!.forEach((item, index) => {

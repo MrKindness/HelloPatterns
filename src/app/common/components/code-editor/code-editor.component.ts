@@ -4,8 +4,9 @@ import { java } from '@codemirror/lang-java';
 import { Transaction } from '@codemirror/state';
 import { Text } from '@codemirror/text';
 import { Subscription } from 'rxjs';
+import { editorControlType } from 'src/app/models/editorControl.enum';
 import { fileObject } from 'src/app/models/fileObject';
-import { TabSwitchService } from 'src/app/services/tabSwitch.service';
+import { EditorControlService } from 'src/app/services/EditorControl';
 
 @Component({
   selector: 'app-code-editor',
@@ -18,9 +19,21 @@ export class CodeEditorComponent implements OnInit {
   @Input() readonly: boolean = false;
   sub!: Subscription;
 
-  constructor(private pageChange: TabSwitchService) {}
+  constructor(private editorControl: EditorControlService) {}
 
   ngOnInit(): void {
+    this.sub = this.editorControl.notificationObject.subscribe((object) => {
+      switch (object.type) {
+        case editorControlType.saveFile:
+          this.file.content = this.saveContent();
+          break;
+        case editorControlType.setFile:
+          this.file = object.data;
+          this.refreshContent();
+          break;
+      }
+    });
+
     this.editor = new EditorView({
       state: EditorState.create({
         extensions: [
@@ -32,10 +45,6 @@ export class CodeEditorComponent implements OnInit {
       }),
       parent: document.getElementById('editor') || undefined,
     });
-
-    this.sub = this.pageChange.switchNotificationObject.subscribe(() => {
-      this.file.content = this.saveContent();
-    });
   }
 
   saveContent() {
@@ -44,6 +53,19 @@ export class CodeEditorComponent implements OnInit {
       response.push(this.editor.state.doc.line(i).text);
     }
     return response;
+  }
+
+  refreshContent() {
+    this.editor.setState(
+      EditorState.create({
+        extensions: [
+          basicSetup,
+          java(),
+          EditorState.readOnly.of(this.readonly),
+        ],
+        doc: Text.of(this.file.content || ['']),
+      })
+    );
   }
 
   ngOnDestroy() {

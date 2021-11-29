@@ -51,8 +51,8 @@
             selectedFile != undefined && selectedFile.type == 1;
             else emptyCodeBlock
           "
-          [file]="selectedFile"
           [readonly]="false"
+          [file]="selectedFile"
           #editor
           class="editor"
         ></app-code-editor>

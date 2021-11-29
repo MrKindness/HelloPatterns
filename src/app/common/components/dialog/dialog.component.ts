@@ -14,9 +14,7 @@ export class DialogComponent implements OnInit {
     public data: dialogData
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.data);
-  }
+  ngOnInit(): void {}
 
   cancel(): void {
     this.data.deleteConfirmation = false;

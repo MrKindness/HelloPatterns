@@ -23,7 +23,7 @@ import { CreateNewComponent } from './components/contents/create-new/create-new.
 import { FileViewComponent } from './common/components/file-view/file-view.component';
 import { CodeEditorComponent } from './common/components/code-editor/code-editor.component';
 import { DialogComponent } from './common/components/dialog/dialog.component';
-import { TabSwitchService } from './services/tabSwitch.service';
+import { EditorControlService } from './services/EditorControl';
 import { FileDeleteService } from './services/FileDelete.service';
 
 @NgModule({
@@ -53,7 +53,7 @@ import { FileDeleteService } from './services/FileDelete.service';
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [TabSwitchService, FileDeleteService],
+  providers: [EditorControlService, FileDeleteService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

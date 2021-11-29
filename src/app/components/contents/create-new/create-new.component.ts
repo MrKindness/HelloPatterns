@@ -1,11 +1,9 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CodeEditorComponent } from 'src/app/common/components/code-editor/code-editor.component';
 import { fileObject } from 'src/app/models/fileObject';
-import { fileType } from 'src/app/models/fileType';
 import { pattern } from 'src/app/models/pattern';
 import { FileDeleteService } from 'src/app/services/FileDelete.service';
-import { TabSwitchService } from 'src/app/services/tabSwitch.service';
+import { EditorControlService } from 'src/app/services/EditorControl';
 
 enum createMode {
   description,
@@ -18,15 +16,15 @@ enum createMode {
   styleUrls: ['./create-new.component.scss'],
 })
 export class CreateNewComponent implements OnInit {
-  @ViewChild('editor') editor!: CodeEditorComponent;
-
-  modeTogle: createMode = createMode.description;
-  selectedFile: fileObject | undefined = undefined;
   @Input() newPattern?: pattern;
+  @Output() savePattern = new EventEmitter();
+
+  modeTogle: createMode = createMode.files;
+  selectedFile: fileObject | undefined = undefined;
   sub!: Subscription;
 
   constructor(
-    private pageChange: TabSwitchService,
+    private editorControl: EditorControlService,
     private delServ: FileDeleteService
   ) {}
 
@@ -37,20 +35,24 @@ export class CreateNewComponent implements OnInit {
   }
 
   addNewAction(): void {
-    console.log(this.newPattern);
+    if (this.newPattern!.name.length > 0) this.savePattern.emit();
   }
 
   OpenDescription() {
-    this.pageChange.pageSwitch();
+    this.editorControl.saveFile();
     if (this.modeTogle) this.modeTogle = createMode.description;
   }
 
   OpenFiles() {
-    this.pageChange.pageSwitch();
+    this.editorControl.saveFile();
     this.modeTogle = createMode.files;
   }
 
   fileClicked(data: any) {
+    console.log('fileclicked');
+
+    this.editorControl.saveFile();
     this.selectedFile = data;
+    this.editorControl.setNewFile(data);
   }
 }

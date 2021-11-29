@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { fileType } from 'src/app/models/fileType';
+import { fileType } from 'src/app/models/fileType.enum';
 import { pattern } from 'src/app/models/pattern';
 import { patternState } from 'src/app/models/patternState.enum';
-import { TabSwitchService } from 'src/app/services/tabSwitch.service';
+import { EditorControlService } from 'src/app/services/EditorControl';
 
 @Component({
   selector: 'app-side-nav',
@@ -22,17 +22,22 @@ export class SideNavComponent implements OnInit {
       type: fileType.root,
     },
   };
-  constructor(private pageChange: TabSwitchService) {}
+  patterns: pattern[] = [];
+
+  constructor(private editorControl: EditorControlService) {}
 
   ngOnInit(): void {}
 
   changeState(newState: patternState): void {
-    this.pageChange.pageSwitch();
+    this.editorControl.saveFile();
     this.state = newState;
   }
 
   changeSideNav() {
-    this.sideNavOpened = !this.sideNavOpened;
+    if (this.patterns.length > 0) this.sideNavOpened = !this.sideNavOpened;
+  }
+
+  saveNewPattern() {
     console.log(this.newPattern);
   }
 }

@@ -1,7 +1,9 @@
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="sideNavOpened">
     <div class="buttonContainer">
-      <button type="button" mat-button>PatternExample</button>
+      <button type="button" mat-button *ngFor="let one of patterns">
+        {{ one.name }}
+      </button>
     </div>
   </mat-drawer>
   <mat-drawer-content [ngSwitch]="state" class="content">
@@ -14,6 +16,7 @@
         [newPattern]="newPattern"
         *ngSwitchCase="1"
         class="window"
+        (savePattern)="saveNewPattern()"
       ></app-create-new>
     </div>
   </mat-drawer-content>
