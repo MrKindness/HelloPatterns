@@ -18,8 +18,7 @@ import { AppComponent } from './app.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ContentComponent } from './components/content/content.component';
-import { DefaultContentComponent } from './components/contents/default-content/default-content.component';
-import { CreateNewComponent } from './components/contents/create-new/create-new.component';
+import { DefaultContentComponent } from './components/default-content/default-content.component';
 import { FileViewComponent } from './common/components/file-view/file-view.component';
 import { CodeEditorComponent } from './common/components/code-editor/code-editor.component';
 import { DialogComponent } from './common/components/dialog/dialog.component';
@@ -36,7 +35,6 @@ import { StateChangeService } from './services/StateChange.service';
     ToolbarComponent,
     ContentComponent,
     DefaultContentComponent,
-    CreateNewComponent,
     FileViewComponent,
     CodeEditorComponent,
     DialogComponent,
