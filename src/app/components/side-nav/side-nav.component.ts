@@ -74,4 +74,14 @@ export class SideNavComponent implements OnInit {
     this.patterns.push(this.selectedPattern);
     this.selectedPattern = new emptyPattern();
   }
+
+  deletePattern(data: any) {
+    this.state = patternState.default;
+    this.stateChange.changeState(patternState.default);
+    this.patterns.forEach((item, index) => {
+      if (item === data) {
+        this.patterns.splice(index, 1);
+      }
+    });
+  }
 }

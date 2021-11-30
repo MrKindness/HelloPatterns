@@ -27,13 +27,14 @@ enum createMode {
   styleUrls: ['./content.component.scss'],
 })
 export class ContentComponent implements OnInit, OnDestroy {
+  @Input() state: patternState = patternState.default;
   @Input() pattern?: pattern;
   @Output() addNewPattern = new EventEmitter();
+  @Output() deletePattern = new EventEmitter<pattern>();
 
   modeTogle: createMode = createMode.description;
   selectedFile?: fileObject = undefined;
   subs: Subscription[] = [];
-  @Input() state: patternState = patternState.default;
 
   constructor(
     private editorControl: EditorControlService,
@@ -47,8 +48,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('content init');
-
     this.subs.push(
       this.delServ.delNotificationObject.subscribe((event) => {
         if (event === this.selectedFile) this.selectedFile = undefined;
@@ -98,7 +97,10 @@ export class ContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  DeletePatternAction() {}
+  DeletePatternAction() {
+    this.selectedFile = undefined;
+    this.deletePattern.emit(this.pattern);
+  }
 
   OpenDescription() {
     this.editorControl.saveFile();

@@ -25,6 +25,7 @@
       <ng-template #elseBlock>
         <app-content
           (addNewPattern)="addNewPattern()"
+          (deletePattern)="deletePattern($event)"
           [pattern]="selectedPattern"
           class="window"
           [state]="state"
